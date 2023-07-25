@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SuperHeroesDatabase } from "../databese/SuperHeroesDatabase";
+import { SuperHeroesDatabase } from "../database/SuperHeroesDatabase";
 import { superHeroesDB } from "../types/types";
 import { SuperHeroes } from "../models/SuperHeroes";
 

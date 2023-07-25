@@ -5,7 +5,7 @@ export abstract class DatabaseConnect {
     protected static connection = knex({
         client: "sqlite3",
         connection: {
-            filename: "./src/data/database.db", //localização do seu arquivo .db
+            filename: "./src/database/database.db", //localização do seu arquivo .db
         },
         useNullAsDefault: true, // definirá NULL quando encontrar valores undefined
         pool: {
