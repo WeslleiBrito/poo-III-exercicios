@@ -20,3 +20,4 @@ const superHeroes = new SuperHeroesController()
 
 app.get('/super-heroes', superHeroes.findSuperHeroes)
 app.post('/super-heroes', superHeroes.createSuperHeroe)
+app.put('/super-heroes/:id', superHeroes.editSuperHeroeById)

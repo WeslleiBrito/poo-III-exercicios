@@ -32,4 +32,17 @@ export class SuperHeroesDatabase extends DatabaseConnect {
 
         return false
     }
+
+    public editSuperHeroe = async (id: string, values: { name: string, universe: string, image_url: string }): Promise<boolean> => {
+
+        const edited = await DatabaseConnect
+            .connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).returning("id").update(values).where({ id: id })
+
+        if (edited) {
+            return true
+        }
+
+        return false
+    }
+
 }

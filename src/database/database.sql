@@ -36,4 +36,6 @@ VALUES (
         'Mulher Maravilha',
         'DC',
         'https://w7.pngwing.com/pngs/604/940/png-transparent-dc-wonder-woman-diana-prince-themyscira-dc-rebirth-dc-comics-wonder-women-comics-fictional-characters-superhero-thumbnail.png'
-    )
+    );
+
+SELECT * FROM super_heroes;
