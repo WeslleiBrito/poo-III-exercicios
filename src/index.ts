@@ -11,9 +11,12 @@ app.use(express.json())
 app.get('/ping', (req: Request, res: Response) => {
     res.status(200).send('pong')
 })
+
 app.listen(3003, () => {
     console.log("API rodando na porta 3003!")
 })
 
 const superHeroes = new SuperHeroesController()
+
 app.get('/super-heroes', superHeroes.findSuperHeroes)
+app.post('/super-heroes', superHeroes.createSuperHeroe)

@@ -13,4 +13,23 @@ export class SuperHeroesDatabase extends DatabaseConnect {
         return superHeroesDB
     }
 
+    public findSuperHeroeByParameter = async (search: string, column: string): Promise<superHeroesDB | undefined> => {
+
+        const [result]: superHeroesDB[] | undefined = await DatabaseConnect
+            .connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).where(`${column}`, `${search}`)
+
+        return result
+    }
+
+    public createSuperHeroe = async (superHeroe: superHeroesDB): Promise<boolean> => {
+
+        const created = await DatabaseConnect
+            .connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).returning('id').insert(superHeroe)
+
+        if (created) {
+            return true
+        }
+
+        return false
+    }
 }

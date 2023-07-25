@@ -4,5 +4,5 @@ export interface superHeroesDB {
     name: string,
     universe: string,
     image_url: string,
-    create_at: string
+    created_at: string
 }
