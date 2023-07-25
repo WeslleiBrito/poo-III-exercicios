@@ -180,7 +180,7 @@ export class SuperHeroesController {
             )
 
 
-            const edited = await superHeroesDatabase.editSuperHeroe(id, {
+            const edited = await superHeroesDatabase.editSuperHeroeById(id, {
                 name: newSuperHeroe.getName(),
                 universe: newSuperHeroe.getUniverse(),
                 image_url: newSuperHeroe.getImageUrl()
@@ -197,6 +197,43 @@ export class SuperHeroesController {
 
         } catch (error) {
 
+            if (req.statusCode === 200) {
+                res.status(500)
+            }
+
+            if (error instanceof Error) {
+                res.send(error.message)
+            } else {
+                res.send("Erro inesperado")
+            }
+        }
+    }
+
+    public deleteSuperHeroeById = async (req: Request, res: Response) => {
+        
+        try {
+            const id = req.params.id
+            const superHeroesDatabase = new SuperHeroesDatabase()
+
+            const idExist = await superHeroesDatabase.findSuperHeroeByParameter(id, 'id')
+
+            if (!idExist) {
+                res.status(400)
+                throw new Error('O id informado não existe.')
+            }
+
+            const deleted = await superHeroesDatabase.deleteSuperHeroeById(id)
+
+            if(deleted){
+                res.status(200).json("Super-heroe deletado com sucesso!")
+            }else{
+                res.status(500)
+            throw new Error('Tivemos um problema em nosso servidor, não conseguimos concluir sua solicitação!')
+            }
+
+            
+            
+        } catch (error) {
             if (req.statusCode === 200) {
                 res.status(500)
             }

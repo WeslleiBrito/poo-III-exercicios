@@ -33,7 +33,7 @@ export class SuperHeroesDatabase extends DatabaseConnect {
         return false
     }
 
-    public editSuperHeroe = async (id: string, values: { name: string, universe: string, image_url: string }): Promise<boolean> => {
+    public editSuperHeroeById = async (id: string, values: { name: string, universe: string, image_url: string }): Promise<boolean> => {
 
         const edited = await DatabaseConnect
             .connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).returning("id").update(values).where({ id: id })
@@ -43,6 +43,13 @@ export class SuperHeroesDatabase extends DatabaseConnect {
         }
 
         return false
+    }
+
+    public deleteSuperHeroeById = async (id: string): Promise<number> => {
+        
+        const deleted = await DatabaseConnect.connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).del().where({id: id})
+        
+        return deleted
     }
 
 }

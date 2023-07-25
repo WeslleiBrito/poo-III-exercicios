@@ -1,4 +1,4 @@
--- Active: 1690292793040@@127.0.0.1@3306
+-- Active: 1690320462049@@127.0.0.1@3306
 
 CREATE TABLE
     IF NOT EXISTS super_heroes (
