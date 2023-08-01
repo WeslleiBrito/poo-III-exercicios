@@ -13,10 +13,10 @@ export class SuperHeroesDatabase extends DatabaseConnect {
         return superHeroesDB
     }
 
-    public findSuperHeroeByParameter = async (search: string, column: string): Promise<superHeroesDB | undefined> => {
+    public findSuperHeroeByParameter = async (search: string, column: string): Promise<superHeroesDB> => {
 
-        const [result]: superHeroesDB[] | undefined = await DatabaseConnect
-            .connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).where(`${column}`, `${search}`)
+        const [result]: superHeroesDB[] = await DatabaseConnect
+            .connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).whereRaw('LOWER(??) LIKE ?', [column, search])
 
         return result
     }
@@ -46,9 +46,9 @@ export class SuperHeroesDatabase extends DatabaseConnect {
     }
 
     public deleteSuperHeroeById = async (id: string): Promise<number> => {
-        
-        const deleted = await DatabaseConnect.connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).del().where({id: id})
-        
+
+        const deleted = await DatabaseConnect.connection(SuperHeroesDatabase.TABLE_SUPER_HEROES).del().where({ id: id })
+
         return deleted
     }
 
