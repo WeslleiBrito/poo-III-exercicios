@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { SuperHeroesDatabase } from "../database/SuperHeroesDatabase";
 import { superHeroesDB } from "../types/types";
 import { SuperHeroes } from "../models/SuperHeroes";
+import { UserBusiness } from "../business/UseBusiness";
 
 
 export class SuperHeroesController {
@@ -11,19 +12,8 @@ export class SuperHeroesController {
 
         try {
 
-            const superHeroesDatabase = new SuperHeroesDatabase()
-            const superHeroesDB: superHeroesDB[] = await superHeroesDatabase.findSuperHeroes()
-
-            const superHeroes = superHeroesDB.map((superHeroe) => {
-
-                return new SuperHeroes(
-                    superHeroe.id,
-                    superHeroe.name,
-                    superHeroe.universe,
-                    superHeroe.image_url,
-                    superHeroe.created_at
-                )
-            })
+            const userBusness = new UserBusiness()
+            const superHeroes = await userBusness.findSuperHeroes()
 
             res.status(200).json(superHeroes)
 
@@ -210,7 +200,7 @@ export class SuperHeroesController {
     }
 
     public deleteSuperHeroeById = async (req: Request, res: Response) => {
-        
+
         try {
             const id = req.params.id
             const superHeroesDatabase = new SuperHeroesDatabase()
@@ -224,15 +214,15 @@ export class SuperHeroesController {
 
             const deleted = await superHeroesDatabase.deleteSuperHeroeById(id)
 
-            if(deleted){
+            if (deleted) {
                 res.status(200).json("Super-heroe deletado com sucesso!")
-            }else{
+            } else {
                 res.status(500)
-            throw new Error('Tivemos um problema em nosso servidor, não conseguimos concluir sua solicitação!')
+                throw new Error('Tivemos um problema em nosso servidor, não conseguimos concluir sua solicitação!')
             }
 
-            
-            
+
+
         } catch (error) {
             if (req.statusCode === 200) {
                 res.status(500)
